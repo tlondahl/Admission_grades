@@ -10,3 +10,4 @@ The code can be found [here](https://github.com/tlondahl/Admission_grades/blob/m
 
 The table at the webpage was of rather low quality. Hence, I had to do some cleaning before it was usable. But at least now I would easily get data from the past 4 years in notime.
 
+![Graph of admission grades](https://github.com/tlondahl/Admission_grades/blob/main/Stockholms%2Buniversitet-Juristprogrammet.png)
