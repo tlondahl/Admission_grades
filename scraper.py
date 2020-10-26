@@ -37,9 +37,11 @@ df['day'] = df.term.apply(lambda x: 31 if 'HT' in x else 18)
 df['term_start'] = pd.to_datetime(df[['year', 'month','day']])
 
 # A plot of the lowest admission grade per semester
-#plot = sns.relplot(x='term_start', y='BI', data=df, hue='termin', kind='line')
-#plot.fig.autofmt_xdate()
-#plt.show()
+admission = sns.relplot(x='term_start', y='BI', data=df, hue='termin', kind='line')
+admission.fig.autofmt_xdate()
+admission.savefig(school+'-'+program+'.png')
+# plt.show()
+
 
 
 
