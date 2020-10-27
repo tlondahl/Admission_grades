@@ -48,18 +48,32 @@ def iteration(terms):
         ignored_exceptions = (NoSuchElementException, StaleElementReferenceException)
         WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions)\
             .until(EC.presence_of_element_located((By.ID, 'DataTables_Table_'+str(searches))))
+        WebDriverWait(driver, 10)\
+            .until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div[1]/div[3]/div[3]/div[4]/div/table/tbody/tr/td[1]')))
         term.append(driver.find_element_by_xpath('/html/body/div[1]/div[1]/div[3]/div[3]/div[4]/div/table/tbody/tr/td[1]').text)
         name.append(driver.find_element_by_xpath('/html/body/div[1]/div[1]/div[3]/div[3]/div[4]/div/table/tbody/tr/td[3]').text)
         uni.append(driver.find_element_by_xpath('/html/body/div[1]/div[1]/div[3]/div[3]/div[4]/div/table/tbody/tr/td[5]').text)
         applicants.append(driver.find_element_by_xpath('/html/body/div[1]/div[1]/div[3]/div[3]/div[4]/div/table/tbody/tr/td[6]').text)
         searches += 1
-
+        driver.find_element_by_xpath('/html/body/div[1]/div[1]/div[3]/div[2]/ul/li[3]/a/label').click()
+        WebDriverWait(driver, 10)\
+            .until(EC.presence_of_element_located((By.ID, 'DataTables_Table_'+str(searches))))
+        WebDriverWait(driver, 10) \
+            .until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div[1]/div[3]/div[3]/div[4]/div/table/tbody/tr[2]/td[7]')))
+        BI.append(driver.find_element_by_xpath('/html/body/div[1]/div[1]/div[3]/div[3]/div[4]/div/table/tbody/tr[2]/td[7]').text)
+        BII.append(driver.find_element_by_xpath('/html/body/div[1]/div[1]/div[3]/div[3]/div[4]/div/table/tbody/tr[3]/td[7]').text)
+        searches += 2
+        driver.find_element_by_xpath('/html/body/div[1]/div[1]/div[3]/div[2]/ul/li[1]/a/label').click()
 
 iteration(10)
+
 df = pd.DataFrame({
     'term': term,
     'name':name,
     'university': uni,
     'applicants': applicants,
+    'BI': BI,
+    'BII': BII
 })
-print(df.head())
+print(df.head().to_markdown())
+
