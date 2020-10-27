@@ -29,7 +29,9 @@ The code can be found [here](https://github.com/tlondahl/Admission_grades/blob/m
 |  0 | VT2020   | Program        | Juristprogrammet     | SU-29293  | Stockholms universitet |                   4283 |               1580 |
 
 ## Version 3.0 - Multiple Semesters
-Version 3 was built upon version 2 but instead of having hard-coded variables for the drop down menues I made some altercations so that the program iterated through the last n semesters and extracted the data from each of those semesters.
+Version 3 was built upon version 2 but instead of having hard-coded variables for the drop down menues and other variables I made the following altercations:
+- Once the data was collected from the table with the number of applicants the program clicked the "Urval 2" button to gat the admissions data.
+- Once the admissions data was collected the program changed the semester and iterated through these steps until the desired number of semesters was met
 
 ### Results
 The code can be found [here](https://github.com/tlondahl/Admission_grades/blob/main/scraper3.py) and the first 5 rows of the dataframe generated looks like this:
