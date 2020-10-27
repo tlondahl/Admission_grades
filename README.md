@@ -33,10 +33,10 @@ Version 3 was built upon version 2 but instead of having hard-coded variables fo
 
 ### Results
 The code can be found [here](https://github.com/tlondahl/Admission_grades/blob/main/scraper3.py) and the first 5 rows of the dataframe generated looks like this:
-|    | term   | name             | university             |   applicants |
-|---:|:-------|:-----------------|:-----------------------|-------------:|
-|  0 | HT2020 | Juristprogrammet | Stockholms universitet |         7204 |
-|  1 | HT2019 | Juristprogrammet | Stockholms universitet |         5946 |
-|  2 | HT2018 | Juristprogrammet | Stockholms universitet |         7109 |
-|  3 | HT2017 | Juristprogrammet | Stockholms universitet |         7226 |
-|  4 | HT2016 | Juristprogrammet | Stockholms universitet |         7270 |
+|    | term   | name             | university             |   applicants |    BI |   BII |
+|---:|:-------|:-----------------|:-----------------------|-------------:|------:|------:|
+|  0 | HT2020 | Juristprogrammet | Stockholms universitet |         7204 | 20.89 | 20.8  |
+|  1 | HT2019 | Juristprogrammet | Stockholms universitet |         5946 | 20.5  | 20.4  |
+|  2 | HT2018 | Juristprogrammet | Stockholms universitet |         7109 | 20.7  | 20.73 |
+|  3 | HT2017 | Juristprogrammet | Stockholms universitet |         7226 | 20.57 | 20.36 |
+|  4 | HT2016 | Juristprogrammet | Stockholms universitet |         7270 | 20.68 | 20.63 |
