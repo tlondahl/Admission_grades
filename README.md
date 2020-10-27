@@ -27,3 +27,18 @@ The code can be found [here](https://github.com/tlondahl/Admission_grades/blob/m
 |    | Termin   | Program/kurs   | Utbildningens namn   | Anm.kod   | Univ/högskola          |   Totalt antal sökande |   1:a handssökande |
 |---:|:---------|:---------------|:---------------------|:----------|:-----------------------|-----------------------:|-------------------:|
 |  0 | VT2020   | Program        | Juristprogrammet     | SU-29293  | Stockholms universitet |                   4283 |               1580 |
+
+## Version 3.0 - Multiple Semesters
+Version 3 was built upon version 2 but instead of having hard-coded variables for the drop down menues and other variables I made the following altercations:
+- Once the data was collected from the table with the number of applicants the program clicked the "Urval 2" button to gat the admissions data.
+- Once the admissions data was collected the program changed the semester and iterated through these steps until the desired number of semesters was met
+
+### Results
+The code can be found [here](https://github.com/tlondahl/Admission_grades/blob/main/scraper3.py) and the first 5 rows of the dataframe generated looks like this:
+|    | term   | name             | university             |   applicants |    BI |   BII |
+|---:|:-------|:-----------------|:-----------------------|-------------:|------:|------:|
+|  0 | HT2020 | Juristprogrammet | Stockholms universitet |         7204 | 20.89 | 20.8  |
+|  1 | HT2019 | Juristprogrammet | Stockholms universitet |         5946 | 20.5  | 20.4  |
+|  2 | HT2018 | Juristprogrammet | Stockholms universitet |         7109 | 20.7  | 20.73 |
+|  3 | HT2017 | Juristprogrammet | Stockholms universitet |         7226 | 20.57 | 20.36 |
+|  4 | HT2016 | Juristprogrammet | Stockholms universitet |         7270 | 20.68 | 20.63 |
