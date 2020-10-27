@@ -22,7 +22,7 @@ To get more data then what was possible in version 1.0 I had to scrape another [
 - And finally scraped the data to a dataframe
 
 ### Results
-The code can be found here and the Dataframe looked like this:
+The code can be found [here](https://github.com/tlondahl/Admission_grades/blob/main/scraper2.py) and the Dataframe looked like this:
 
 |    | Termin   | Program/kurs   | Utbildningens namn   | Anm.kod   | Univ/högskola          |   Totalt antal sökande |   1:a handssökande |
 |---:|:---------|:---------------|:---------------------|:----------|:-----------------------|-----------------------:|-------------------:|
