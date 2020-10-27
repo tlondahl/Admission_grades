@@ -10,3 +10,20 @@ The code can be found [here](https://github.com/tlondahl/Admission_grades/blob/m
 
 The table at the webpage was of rather low quality. Hence, I had to do some cleaning before it was usable. But at least now I would easily get data from the past 4 years in notime.
 
+![Graph of admission grades](https://github.com/tlondahl/Admission_grades/blob/main/Stockholms%2Buniversitet-Juristprogrammet.png)
+
+## Version 2.0 - Selecting what too look for
+To get more data then what was possible in version 1.0 I had to scrape another [web page](https://statistik.uhr.se/), a page where you had to make selections form dropdown lists and/or searchfields. Hence, I needed to look for another solution which could interact with the various filters first before I could scrape the data. I decided to work with Selanium and wrote a program who did the following:
+- In the searchfield typed "Jur"
+- Selected the spring semester och 2020 (VT2020)
+- Selected to only look at Stockholm University
+- Selected to only look at programs
+- Clicked the search button
+- And finally scraped the data to a dataframe
+
+### Results
+The code can be found here and the Dataframe looked like this:
+
+|    | Termin   | Program/kurs   | Utbildningens namn   | Anm.kod   | Univ/högskola          |   Totalt antal sökande |   1:a handssökande |
+|---:|:---------|:---------------|:---------------------|:----------|:-----------------------|-----------------------:|-------------------:|
+|  0 | VT2020   | Program        | Juristprogrammet     | SU-29293  | Stockholms universitet |                   4283 |               1580 |
