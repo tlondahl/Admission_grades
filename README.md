@@ -2,6 +2,15 @@
 ## Introduction
 As a part of my learning experience I wanted to build a web scraper. A data scource i knew was quite frustrating to get full data from was the admissions for a certain university program in Sweden with data reaching several years back. To get this you previously had to go to click around at https://statistik.uhr.se/ to see the stats for differen semesters and could only see one semesters data at a time. Hence, I decided to build a web scraper who could do all the manual labor for me and neatly compile the data in a dataframe.
 
+### Data and packages
+The data have been collected from https://statistik.uhr.se/.
+The python packages that have been used are the following:
+- Pandas
+- Selenium
+- BeautifulSoup
+- Matplotlib
+- Seaborn
+
 ## Version 1.0 - One Program, One School
 As a first step on my web scraping journey I decided to start small and scrape the data for one specific program at one specific University. I realized that there had been some development at "UHR" (the official authority of the admission stats in Sweden) since i last applied for school. You could now get a summary table of one program at one university with data up to 4 years old. Hence, I figured this was a good place to start.
 
