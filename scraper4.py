@@ -7,6 +7,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.support import expected_conditions as EC
 import time
+import math
 start_time = time.time()
 
 path = '/Applications/chromedriver' #where i've saved the chrome driver locally
@@ -49,7 +50,7 @@ def scraper(terms):
         # Scrape the semester, name of the program, the school and number of applicants
         #current_page = int(driver.find_element_by_class_name('paginate_active').text)
         pages = 1
-        number_of_pages = (len(driver.find_elements_by_class_name('paginate_button'))+1)/2
+        number_of_pages = math.ceil(int(driver.find_element_by_id('DataTables_Table_'+str(searches)+'_info').text.split()[-2])/25)
         while pages <= number_of_pages:
             dfs.append(pd.read_html(driver.page_source, header=0)[0])
             driver.find_element_by_id('DataTables_Table_' + str(searches) + '_next').click()
