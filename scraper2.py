@@ -31,10 +31,8 @@ driver.find_element_by_id('search-button').click()
 
 # Wait until the table emerges and then create a dataframe from it
 try:
-    element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "table")))
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "table")))
     df = pd.read_html(driver.page_source)[0]
     print(df.to_markdown())
 finally:
     driver.quit()
-
-

@@ -35,7 +35,7 @@ BI = []
 BII = []
 
 # Define a function for iterating through several semesters
-def iteration(terms):
+def scraper(terms):
     # Select witch semester
     semester = Select(driver.find_element_by_id('AdmissionRoundId'))
     # options = semester.options
@@ -65,7 +65,7 @@ def iteration(terms):
         searches += 2
         driver.find_element_by_xpath('/html/body/div[1]/div[1]/div[3]/div[2]/ul/li[1]/a/label').click()
 
-iteration(10)
+scraper(10)
 
 df = pd.DataFrame({
     'term': term,

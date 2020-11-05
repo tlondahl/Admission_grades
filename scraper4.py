@@ -42,12 +42,12 @@ def scraper(terms):
         WebDriverWait(driver, 10) \
             .until(EC.presence_of_element_located(
             (By.XPATH, '/html/body/div[1]/div[1]/div[3]/div[3]/div[4]/div/table/tbody/tr/td[1]')))
-    # Select witch semester
+    # Select which semester
     semester = Select(driver.find_element_by_id('AdmissionRoundId'))
     # options = semester.options
     searches = 0
     for index in range(0, terms):
-        if index == 13:
+        if index == 13: #To skip the spring semester of 2021 since it has no admission data
             continue
         semester.select_by_index(index)
         # Click on the search button
@@ -101,7 +101,7 @@ def scraper(terms):
 
 scraper(25)
 
-# Merge all the lists of dataframe to one respective df
+# Merge all the lists of dataframe to one df respectively
 applicants_df = pd.concat(applicants_dfs)
 gender_df = pd.concat(gender_dfs)
 age_df = pd.concat(age_dfs)
