@@ -58,7 +58,7 @@ In version 4 I developed version 3 even further. Some of the changes I made was:
 - Once all the data was collected the script compiled all the data into one dataframe which then was saved as a csv file.
 
 ### Results
-To test the script I decided to limit the search to only one University but I scraped 24 semesters back, i.e. 12 years of addmission data. The script worked and could easilly be expanded to scrape all data, for all programs, from all Universities. The result looks as follows:
+To test the script I decided to limit the search to only one University but I scraped 24 semesters back, i.e. 12 years of addmission data. The script worked and could easilly be expanded to scrape all data, for all programs, from all Universities. The code can be found [here](https://github.com/tlondahl/Admission_grades/blob/main/scraper4.py) and the result looks as follows and can be found in this [csv file](https://github.com/tlondahl/Admission_grades/blob/main/admission_data_SU.csv):
 
 |    | Termin   | Program/kurs   | Utbildningens namn                                                    | Anm.kod   | Univ/högskola          |   Totalt antal sökande |   1:a handssökande |   Kvinnor 1:a hand |   Kvinnor totalt |   Män 1:a hand |   Män totalt |   25-34 1:a hand |   25-34 totalt |   <= 24 1:a hand |   <= 24 totalt |   >=35 1:a hand |   >=35 totalt | BI    | BII   | HP   |
 |---:|:---------|:---------------|:----------------------------------------------------------------------|:----------|:-----------------------|-----------------------:|-------------------:|-------------------:|-----------------:|---------------:|-------------:|-----------------:|---------------:|-----------------:|---------------:|----------------:|--------------:|:------|:------|:-----|
