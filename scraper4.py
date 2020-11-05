@@ -10,13 +10,15 @@ import time
 import math
 start_time = time.time()
 
+pd.set_option('display.max_columns', None)
+
 path = '/Applications/chromedriver' #where i've saved the chrome driver locally
 driver = webdriver.Chrome(path)
 driver.get('https://statistik.uhr.se/')
 
 # Type in what you want to search for in the search field
-search = driver.find_element_by_id('Search')
-search.send_keys('master')
+# search = driver.find_element_by_id('Search')
+# search.send_keys('kandidat')
 
 # Select the School
 school = Select(driver.find_element_by_id('EducationOrgId'))
@@ -26,8 +28,11 @@ school.select_by_value('SU ')
 prog = Select(driver.find_element_by_id('ProgKurs'))
 prog.select_by_value('p')
 
-dfs = []
-dfs2 = []
+applicants_dfs = []
+gender_dfs = []
+age_dfs = []
+admission_dfs = []
+
 # Define a function for iterating through several semesters
 def scraper(terms):
     def wait(): # A function for waiting until the tables are present after each search
@@ -42,6 +47,8 @@ def scraper(terms):
     # options = semester.options
     searches = 0
     for index in range(0, terms):
+        if index == 13:
+            continue
         semester.select_by_index(index)
         # Click on the search button
         driver.find_element_by_id('search-button').click()
@@ -52,7 +59,7 @@ def scraper(terms):
         pages = 1
         number_of_pages = math.ceil(int(driver.find_element_by_id('DataTables_Table_'+str(searches)+'_info').text.split()[-2])/25)
         while pages <= number_of_pages:
-            dfs.append(pd.read_html(driver.page_source, header=0)[0])
+            applicants_dfs.append(pd.read_html(driver.page_source, header=0)[0])
             driver.find_element_by_id('DataTables_Table_' + str(searches) + '_next').click()
             pages += 1
             wait()
@@ -62,7 +69,7 @@ def scraper(terms):
         pages = 1
         wait()
         while pages <= number_of_pages:
-            dfs.append(pd.read_html(driver.page_source, header=0)[0])
+            gender_dfs.append(pd.read_html(driver.page_source, header=0)[0])
             driver.find_element_by_id('DataTables_Table_' + str(searches) + '_next').click()
             pages += 1
             wait()
@@ -72,7 +79,7 @@ def scraper(terms):
         pages = 1
         wait()
         while pages <= number_of_pages:
-            dfs.append(pd.read_html(driver.page_source, header=0)[0])
+            age_dfs.append(pd.read_html(driver.page_source, header=0)[0])
             driver.find_element_by_id('DataTables_Table_' + str(searches) + '_next').click()
             pages += 1
             wait()
@@ -82,28 +89,53 @@ def scraper(terms):
         pages = 1
         wait()
         while pages <= number_of_pages:
-            dfs2.append(pd.read_html(driver.page_source, header=0)[0])
+            admission_dfs.append(pd.read_html(driver.page_source, header=0)[0])
             driver.find_element_by_id('DataTables_Table_' + str(searches) + '_next').click()
             pages += 1
             wait()
         # Click on the button for number of applicants
         driver.find_element_by_xpath('/html/body/div[1]/div[1]/div[3]/div[2]/ul/li[1]/a/label').click()
-        searches += 1
+        searches += 2
         # Click in the next page
-        wait()
     driver.quit()
 
+scraper(25)
 
+# Merge all the lists of dataframe to one respective df
+applicants_df = pd.concat(applicants_dfs)
+gender_df = pd.concat(gender_dfs)
+age_df = pd.concat(age_dfs)
+admission_df = pd.concat(admission_dfs)
 
+#Merge applicants, gender and age
+cols_to_use = list(gender_df.columns.difference(applicants_df.columns))
+cols_to_use.append('Anm.kod')
+df = pd.merge(applicants_df, gender_df[cols_to_use], left_on='Anm.kod', right_on='Anm.kod')
+cols_to_use = list(age_df.columns.difference(df.columns))
+cols_to_use.append('Anm.kod')
+df = pd.merge(df, age_df[cols_to_use], left_on='Anm.kod', right_on='Anm.kod')
 
-scraper(1)
+# Create a new dataframe for the admissions data with the different admission groups as columns
+# Extract the unique admission codes, i.e. codes for each program/course each semester
+admission = pd.DataFrame((admission_df[['Anm.kod']].drop_duplicates()), columns=['Anm.kod'])
 
-print(dfs)
+# Merge the previously created admission df with the admission stats for each admission code ("Anm.kod")
+BI = admission_df[admission_df['Urvalsgrupp'] == 'BI']
+BII = admission_df[admission_df['Urvalsgrupp'] == 'BII']
+HP = admission_df[admission_df['Urvalsgrupp'] == 'HP']
+selection_group = [BI, BII, HP]
+
+for group in selection_group:
+    admission = pd.merge(admission, group[['Anm.kod', 'Antagningspoäng']], on='Anm.kod')
+
+admission.rename(columns={'Antagningspoäng_x': 'BI', 'Antagningspoäng_y': 'BII', 'Antagningspoäng':'HP'}, inplace=True)
+
+cols_to_use = list(admission.columns.difference(df.columns))
+cols_to_use.append('Anm.kod')
+df = pd.merge(df, admission[cols_to_use], left_on='Anm.kod', right_on='Anm.kod')
+
+df.to_csv('admission_data_SU.csv')
+print(df.info())
+print('------')
 print('the script ran for ',time.time()-start_time,' seconds')
-# df = dfs[0]
-
-# dfs[-1].to_csv('admissions')
-
-
-# df.to_csv('admission.csv')
 
