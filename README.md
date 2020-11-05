@@ -51,3 +51,20 @@ The code can be found [here](https://github.com/tlondahl/Admission_grades/blob/m
 |  2 | HT2018 | Juristprogrammet | Stockholms universitet |         7109 | 20.7  | 20.73 |
 |  3 | HT2017 | Juristprogrammet | Stockholms universitet |         7226 | 20.57 | 20.36 |
 |  4 | HT2016 | Juristprogrammet | Stockholms universitet |         7270 | 20.68 | 20.63 |
+
+## Version 4.0 - All the data you want to one csv
+In version 4 I developed version 3 even further. Some of the changes I made was:
+- Enabled the script to run through several pages without getting stuck
+- Once all the data was collected the script compiled all the data into one dataframe which then was saved as a csv file.
+
+### Results
+To test the script I decided to limit the search to only one University but I scraped 24 semesters back, i.e. 12 years of addmission data. The script worked and could easilly be expanded to scrape all data, for all programs, from all Universities. The code can be found [here](https://github.com/tlondahl/Admission_grades/blob/main/scraper4.py) and the result looks as follows and can be found in this [csv file](https://github.com/tlondahl/Admission_grades/blob/main/admission_data_SU.csv):
+
+|    | Termin   | Program/kurs   | Utbildningens namn                                                    | Anm.kod   | Univ/högskola          |   Totalt antal sökande |   1:a handssökande |   Kvinnor 1:a hand |   Kvinnor totalt |   Män 1:a hand |   Män totalt |   25-34 1:a hand |   25-34 totalt |   <= 24 1:a hand |   <= 24 totalt |   >=35 1:a hand |   >=35 totalt | BI    | BII   | HP   |
+|---:|:---------|:---------------|:----------------------------------------------------------------------|:----------|:-----------------------|-----------------------:|-------------------:|-------------------:|-----------------:|---------------:|-------------:|-----------------:|---------------:|-----------------:|---------------:|----------------:|--------------:|:------|:------|:-----|
+|  0 | HT2020   | Program        | Kandidatprogram i Mångfaldsstudier                                    | SU-01484  | Stockholms universitet |                    145 |                 14 |                 11 |              119 |              2 |           18 |                6 |             38 |                6 |             81 |               1 |            18 | *     | *     | *    |
+|  1 | HT2020   | Program        | Kandidatprogram för museer och kulturarv                              | SU-01485  | Stockholms universitet |                    198 |                 39 |                 32 |              134 |              7 |           61 |               14 |             81 |               19 |             86 |               6 |            28 | *     | *     | *    |
+|  2 | HT2020   | Program        | Kandidatprogram i latinamerikastudier med inriktning mot portugisiska | SU-07957  | Stockholms universitet |                     52 |                 11 |                  4 |               11 |              2 |            9 |                3 |              8 |                2 |             10 |               1 |             2 | *     | *     | *    |
+|  3 | HT2020   | Program        | Kandidatprogram i latinamerikastudier med inriktning mot spanska      | SU-07959  | Stockholms universitet |                     86 |                 22 |                 10 |               34 |              2 |           14 |                4 |             14 |                5 |             29 |               3 |             5 | *     | *     | *    |
+|  4 | HT2020   | Program        | Kandidatprogram i filosofi, ekonomi och politik                       | SU-10715  | Stockholms universitet |                    697 |                 76 |                 23 |              277 |             50 |          403 |               18 |            121 |               53 |            536 |               2 |            23 | 18.49 | 19.74 | 1.05 |
+
