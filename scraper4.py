@@ -17,8 +17,8 @@ driver = webdriver.Chrome(path)
 driver.get('https://statistik.uhr.se/')
 
 # Type in what you want to search for in the search field
-# search = driver.find_element_by_id('Search')
-# search.send_keys('kandidat')
+#search = driver.find_element_by_id('Search')
+#search.send_keys('kandidat')
 
 # Select the School
 school = Select(driver.find_element_by_id('EducationOrgId'))
@@ -99,7 +99,7 @@ def scraper(terms):
         # Click in the next page
     driver.quit()
 
-scraper(25)
+scraper(10)
 
 # Merge all the lists of dataframe to one df respectively
 applicants_df = pd.concat(applicants_dfs)
