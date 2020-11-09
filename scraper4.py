@@ -7,8 +7,10 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.support import expected_conditions as EC
 import time
+import datetime
 import math
 start_time = time.time()
+
 
 pd.set_option('display.max_columns', None)
 
@@ -21,8 +23,8 @@ driver.get('https://statistik.uhr.se/')
 #search.send_keys('kandidat')
 
 # Select the School
-school = Select(driver.find_element_by_id('EducationOrgId'))
-school.select_by_value('SU ')
+# school = Select(driver.find_element_by_id('EducationOrgId'))
+# school.select_by_value('SU ')
 
 # Select if you want to look at only programs, courses or both
 prog = Select(driver.find_element_by_id('ProgKurs'))
@@ -99,7 +101,7 @@ def scraper(terms):
         # Click in the next page
     driver.quit()
 
-scraper(10)
+scraper(26)
 
 # Merge all the lists of dataframe to one df respectively
 applicants_df = pd.concat(applicants_dfs)
@@ -134,8 +136,8 @@ cols_to_use = list(admission.columns.difference(df.columns))
 cols_to_use.append('Anm.kod')
 df = pd.merge(df, admission[cols_to_use], left_on='Anm.kod', right_on='Anm.kod')
 
-df.to_csv('admission_data_SU.csv')
-print(df.info())
+df.to_csv('admission_data.csv')
+print(df.tail())
 print('------')
-print('the script ran for ',time.time()-start_time,' seconds')
+print('the script ran for ',datetime.timedelta(seconds=(time.time()-start_time)))
 
