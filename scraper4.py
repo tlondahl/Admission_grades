@@ -102,6 +102,8 @@ def scraper(terms):
     driver.quit()
 
 scraper(26)
+print('The Web Scraper ran for',datetime.timedelta(seconds=(time.time()-start_time)))
+print('------')
 
 # Merge all the lists of dataframe to one df respectively
 applicants_df = pd.concat(applicants_dfs)
@@ -137,7 +139,6 @@ cols_to_use.append('Anm.kod')
 df = pd.merge(df, admission[cols_to_use], left_on='Anm.kod', right_on='Anm.kod')
 
 df.to_csv('admission_data.csv')
-print(df.tail())
+print('The data wrangling ran for',datetime.timedelta(seconds=(time.time()-start_time)))
 print('------')
-print('the script ran for ',datetime.timedelta(seconds=(time.time()-start_time)))
-
+print('The entire script ran for a total of',datetime.timedelta(seconds=(time.time()-start_time)))
