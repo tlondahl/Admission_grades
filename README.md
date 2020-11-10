@@ -58,7 +58,7 @@ In version 4 I developed version 3 even further. Some of the changes I made was:
 - Once all the data was collected the script compiled all the data into one dataframe which then was saved as a csv file.
 
 ### Results
-I ran the code scraping 24 semesters back, i.e. 12 years of addmission data. The script worked and could easilly be adjusted to scrape any data, for any programs, from any University. The code can be found [here](https://github.com/tlondahl/Admission_grades/blob/main/scraper4.py) and the result looks as follows and can be found in this [csv file](https://github.com/tlondahl/Admission_grades/blob/main/admission_data.csv):
+I ran the code scraping 24 semesters back, i.e. 12 years of addmission data. The script worked and could easilly be adjusted to scrape any data, for any programs, from any University. The code can be found [here](https://github.com/tlondahl/Admission_grades/blob/main/scraper4.py) and the result looks as follows (since the column names are in Swedish I'll add a translation below) and can be found in this [csv file](https://github.com/tlondahl/Admission_grades/blob/main/admission_data.csv):
 
 |    | Termin   | Program/kurs   | Utbildningens namn      | Anm.kod   | Univ/högskola              |   Totalt antal sökande |   1:a handssökande |   Kvinnor 1:a hand |   Kvinnor totalt |   Män 1:a hand |   Män totalt |   25-34 1:a hand |   25-34 totalt |   <= 24 1:a hand |   <= 24 totalt |   >=35 1:a hand |   >=35 totalt |    BI |    BII |     HP |
 |---:|:---------|:---------------|:------------------------|:----------|:---------------------------|-----------------------:|-------------------:|-------------------:|-----------------:|---------------:|-------------:|-----------------:|---------------:|-----------------:|---------------:|----------------:|--------------:|------:|-------:|-------:|
@@ -67,3 +67,26 @@ I ran the code scraping 24 semesters back, i.e. 12 years of addmission data. The
 |  2 | HT2019   | Program        | Fysisk planering        | BTH-86954 | Blekinge tekniska högskola |                    342 |                 92 |                 51 |              177 |             41 |          163 |               20 |             69 |               70 |            263 |               2 |             8 | 14.2  |  16.67 |   0.7  |
 |  3 | HT2019   | Program        | Fysisk planering        | BTH-86954 | Blekinge tekniska högskola |                    342 |                 92 |                 51 |              177 |             41 |          163 |               20 |             69 |               70 |            263 |               2 |             8 | 14.2  |  16.67 |   0.7  |
 |  4 | HT2019   | Program        | Fysisk planering        | BTH-86954 | Blekinge tekniska högskola |                    342 |                 92 |                 51 |              177 |             41 |          163 |               20 |             69 |               70 |            263 |               2 |             8 | 14.2  |  16.67 |   0.7  |
+
+| Column Name | English translation/explanation |
+|---:|:---------|
+|Termin | Semester |
+|Program/kurs | If it is a program och course |
+|Utbildningens namn | The name of the program/course |
+|Anm.kod | The admission code, i.e. the code for that program/course and semester |
+|Univ/högskola | Univeristy/College |
+|Totalt antal sökande | Total number of applicants |
+|1:a handssökande | Number of applicants who had that course/program as their first choice |
+|Kvinnor 1:a hand | Number of women who had it as their first choice |
+|Kvinnor totalt | Number of women who applied in total |
+|Män 1:a hand | Number of men who had it as their first choice |
+|Män totalt | Number of men who applied in total |
+|25-34 1:a hand | Number of people between the age of 25-34 who applied with this as their first choice |
+|25-34 totalt | Number of people between the age of 25-34 who applied in total |
+|<= 24 1:a hand | Number of people with an age lower than 24 who applied with this as their first choice |
+|<= 24 totalt | Number of people with an age lower than 24 who applied in total |
+|>=35 1:a hand' | Number of people with an age higher than 35 who applied with this as their first choice |
+|>=35 totalt' | Number of people with an age higher than 35 who applied in total |
+|BI | The lowest admitted high school grade (for people who had _**not**_ improved their grades since graduating high schools) |
+|BII | The lowest admitted high school grade (for people who _**had**_ improved their grades since graduating high schools) |
+|HP | The lowest score on the Swedish SAT (Högskoleprovet) that was admitted |
