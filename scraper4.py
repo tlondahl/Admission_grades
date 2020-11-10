@@ -9,6 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 import datetime
 import math
+import numpy as np
 start_time = time.time()
 
 
@@ -19,8 +20,8 @@ driver = webdriver.Chrome(path)
 driver.get('https://statistik.uhr.se/')
 
 # Type in what you want to search for in the search field
-#search = driver.find_element_by_id('Search')
-#search.send_keys('kandidat')
+# search = driver.find_element_by_id('Search')
+# search.send_keys()
 
 # Select the School
 # school = Select(driver.find_element_by_id('EducationOrgId'))
@@ -102,6 +103,7 @@ def scraper(terms):
     driver.quit()
 
 scraper(26)
+scraper_time = time.time()
 print('The Web Scraper ran for',datetime.timedelta(seconds=(time.time()-start_time)))
 print('------')
 
@@ -111,34 +113,28 @@ gender_df = pd.concat(gender_dfs)
 age_df = pd.concat(age_dfs)
 admission_df = pd.concat(admission_dfs)
 
-#Merge applicants, gender and age
+# Merge applicants, gender and age
 cols_to_use = list(gender_df.columns.difference(applicants_df.columns))
-cols_to_use.append('Anm.kod')
-df = pd.merge(applicants_df, gender_df[cols_to_use], left_on='Anm.kod', right_on='Anm.kod')
+cols_to_use.extend(['Anm.kod', 'Termin'])
+df = pd.merge(applicants_df, gender_df[cols_to_use], on=['Anm.kod', 'Termin'])
 cols_to_use = list(age_df.columns.difference(df.columns))
-cols_to_use.append('Anm.kod')
-df = pd.merge(df, age_df[cols_to_use], left_on='Anm.kod', right_on='Anm.kod')
+cols_to_use.extend(['Anm.kod', 'Termin'])
+df = pd.merge(df, age_df[cols_to_use], on=['Anm.kod', 'Termin'])
+
 
 # Create a new dataframe for the admissions data with the different admission groups as columns
-# Extract the unique admission codes, i.e. codes for each program/course each semester
-admission = pd.DataFrame((admission_df[['Anm.kod']].drop_duplicates()), columns=['Anm.kod'])
+admission_df = admission_df.loc[(admission_df['Urvalsgrupp'] == 'BI' )| (admission_df['Urvalsgrupp'] == 'BII') |
+                                (admission_df['Urvalsgrupp'] =='HP')] # Only keep the interseting and relevant columns
+admission_df.replace(['*', '-'], '', inplace=True)
+admission_df['Antagningspoäng'] = pd.to_numeric(admission_df['Antagningspoäng'])
+admission_df = admission_df.pivot_table(index=['Termin', 'Anm.kod'], columns='Urvalsgrupp', values='Antagningspoäng').reset_index()
 
-# Merge the previously created admission df with the admission stats for each admission code ("Anm.kod")
-BI = admission_df[admission_df['Urvalsgrupp'] == 'BI']
-BII = admission_df[admission_df['Urvalsgrupp'] == 'BII']
-HP = admission_df[admission_df['Urvalsgrupp'] == 'HP']
-selection_group = [BI, BII, HP]
-
-for group in selection_group:
-    admission = pd.merge(admission, group[['Anm.kod', 'Antagningspoäng']], on='Anm.kod')
-
-admission.rename(columns={'Antagningspoäng_x': 'BI', 'Antagningspoäng_y': 'BII', 'Antagningspoäng':'HP'}, inplace=True)
-
-cols_to_use = list(admission.columns.difference(df.columns))
-cols_to_use.append('Anm.kod')
-df = pd.merge(df, admission[cols_to_use], left_on='Anm.kod', right_on='Anm.kod')
+# Merge it with all the other data
+cols_to_use = list(admission_df.columns.difference(df.columns))
+cols_to_use.extend(['Anm.kod', 'Termin'])
+df = pd.merge(df, admission_df[cols_to_use], on=['Anm.kod','Termin'])
 
 df.to_csv('admission_data.csv')
-print('The data wrangling ran for',datetime.timedelta(seconds=(time.time()-start_time)))
+print('The data wrangling ran for',datetime.timedelta(seconds=(time.time()-scraper_time)))
 print('------')
 print('The entire script ran for a total of',datetime.timedelta(seconds=(time.time()-start_time)))
