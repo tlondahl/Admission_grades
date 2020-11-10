@@ -116,10 +116,10 @@ admission_df = pd.concat(admission_dfs)
 # Merge applicants, gender and age
 cols_to_use = list(gender_df.columns.difference(applicants_df.columns))
 cols_to_use.extend(['Anm.kod', 'Termin'])
-df = pd.merge(applicants_df, gender_df[cols_to_use], on=['Anm.kod', 'Termin'])
+df = pd.merge(applicants_df, gender_df[cols_to_use], on=['Anm.kod', 'Termin'], how='outer')
 cols_to_use = list(age_df.columns.difference(df.columns))
 cols_to_use.extend(['Anm.kod', 'Termin'])
-df = pd.merge(df, age_df[cols_to_use], on=['Anm.kod', 'Termin'])
+df = pd.merge(df, age_df[cols_to_use], on=['Anm.kod', 'Termin'], how='outer')
 
 
 # Create a new dataframe for the admissions data with the different admission groups as columns
@@ -132,9 +132,10 @@ admission_df = admission_df.pivot_table(index=['Termin', 'Anm.kod'], columns='Ur
 # Merge it with all the other data
 cols_to_use = list(admission_df.columns.difference(df.columns))
 cols_to_use.extend(['Anm.kod', 'Termin'])
-df = pd.merge(df, admission_df[cols_to_use], on=['Anm.kod','Termin'])
+df = pd.merge(df, admission_df[cols_to_use], on=['Anm.kod','Termin'], how='outer')
 
 df.to_csv('admission_data.csv')
 print('The data wrangling ran for',datetime.timedelta(seconds=(time.time()-scraper_time)))
 print('------')
 print('The entire script ran for a total of',datetime.timedelta(seconds=(time.time()-start_time)))
+print(df.info())
