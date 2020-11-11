@@ -104,7 +104,7 @@ def scraper(terms):
         # Click in the next page
     driver.quit()
 
-scraper(2)
+scraper(26)
 scraper_time = time.time()
 print('The Web Scraper ran for',datetime.timedelta(seconds=(time.time()-start_time)))
 print('------')
