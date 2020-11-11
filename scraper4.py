@@ -60,7 +60,7 @@ def scraper(terms):
         # Scrape the semester, name of the program, the school and number of applicants
         #current_page = int(driver.find_element_by_class_name('paginate_active').text)
         pages = 1
-        number_of_pages = math.ceil(int(driver.find_element_by_id('DataTables_Table_'+str(searches)+'_info').text.split()[-2])/25)
+        number_of_pages = math.ceil(int(driver.find_element_by_id('DataTables_Table_'+str(searches)+'_info').text.split('t')[-2].replace(' ',''))/25)
         while pages <= number_of_pages:
             applicants_dfs.append(pd.read_html(driver.page_source, header=0)[0])
             driver.find_element_by_id('DataTables_Table_' + str(searches) + '_next').click()
@@ -91,6 +91,8 @@ def scraper(terms):
         searches += 1
         pages = 1
         wait()
+        number_of_pages = math.ceil(int(driver.find_element_by_id('DataTables_Table_' + str(searches) + '_info')
+                                        .text.split('t')[-2].replace(' ','')) / 25)
         while pages <= number_of_pages:
             admission_dfs.append(pd.read_html(driver.page_source, header=0)[0])
             driver.find_element_by_id('DataTables_Table_' + str(searches) + '_next').click()
@@ -102,7 +104,7 @@ def scraper(terms):
         # Click in the next page
     driver.quit()
 
-scraper(26)
+scraper(2)
 scraper_time = time.time()
 print('The Web Scraper ran for',datetime.timedelta(seconds=(time.time()-start_time)))
 print('------')
@@ -116,15 +118,15 @@ admission_df = pd.concat(admission_dfs)
 # Merge applicants, gender and age
 cols_to_use = list(gender_df.columns.difference(applicants_df.columns))
 cols_to_use.extend(['Anm.kod', 'Termin'])
-df = pd.merge(applicants_df, gender_df[cols_to_use], on=['Anm.kod', 'Termin'], how='outer')
+df = pd.merge(applicants_df, gender_df[cols_to_use], on=['Anm.kod', 'Termin'])
 cols_to_use = list(age_df.columns.difference(df.columns))
 cols_to_use.extend(['Anm.kod', 'Termin'])
-df = pd.merge(df, age_df[cols_to_use], on=['Anm.kod', 'Termin'], how='outer')
+df = pd.merge(df, age_df[cols_to_use], on=['Anm.kod', 'Termin'])
 
 
 # Create a new dataframe for the admissions data with the different admission groups as columns
 admission_df = admission_df.loc[(admission_df['Urvalsgrupp'] == 'BI' )| (admission_df['Urvalsgrupp'] == 'BII') |
-                                (admission_df['Urvalsgrupp'] =='HP')] # Only keep the interseting and relevant columns
+                                 (admission_df['Urvalsgrupp'] =='HP')] # Only keep the interesting and relevant columns
 admission_df.replace(['*', '-'], '', inplace=True)
 admission_df['Antagningspoäng'] = pd.to_numeric(admission_df['Antagningspoäng'])
 admission_df = admission_df.pivot_table(index=['Termin', 'Anm.kod'], columns='Urvalsgrupp', values='Antagningspoäng').reset_index()
@@ -132,10 +134,11 @@ admission_df = admission_df.pivot_table(index=['Termin', 'Anm.kod'], columns='Ur
 # Merge it with all the other data
 cols_to_use = list(admission_df.columns.difference(df.columns))
 cols_to_use.extend(['Anm.kod', 'Termin'])
-df = pd.merge(df, admission_df[cols_to_use], on=['Anm.kod','Termin'], how='outer')
+df = pd.merge(df, admission_df[cols_to_use], on=['Anm.kod','Termin'])
 
 df.to_csv('admission_data.csv')
+# admission_df.to_csv('admission_data_b')
 print('The data wrangling ran for',datetime.timedelta(seconds=(time.time()-scraper_time)))
 print('------')
 print('The entire script ran for a total of',datetime.timedelta(seconds=(time.time()-start_time)))
-print(df.info())
+print(admission_df.info())
