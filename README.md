@@ -1,4 +1,9 @@
 # Admission Grades
+## Summary
+In this project I built a web scraper in order to get the admission data of all swedish universities. This data was later used to build a model to predict upcomming admission grades. The model currently has an R^2 score of 0.6 and a MSE of 2.43. However, I am cirrently working on ways to improve it further.
+
+![Distribution plot of actual vs fitted values](https://github.com/tlondahl/Admission_grades/blob/main/distplot.png)
+
 ## Introduction
 As a part of my learning experience I wanted to build a web scraper. A data scource i knew was quite frustrating to get full data from was the admissions for a certain university program in Sweden with data reaching several years back. To get this you previously had to go to click around at https://statistik.uhr.se/ to see the stats for differen semesters and could only see one semesters data at a time. Hence, I decided to build a web scraper who could do all the manual labor for me and neatly compile the data in a dataframe.
 
@@ -10,6 +15,8 @@ The python packages that have been used are the following:
 - BeautifulSoup
 - Matplotlib
 - Seaborn
+- Datetime
+- Scikit-learn 
 
 ## Version 1.0 - One Program, One School
 As a first step on my web scraping journey I decided to start small and scrape the data for one specific program at one specific University. I realized that there had been some development at "UHR" (the official authority of the admission stats in Sweden) since i last applied for school. You could now get a summary table of one program at one university with data up to 4 years old. Hence, I figured this was a good place to start.
@@ -112,6 +119,6 @@ I used a Linear regression and with after some experiemtns I found that the most
 - 'Uni'
 - 'days'
 
-The highest score was 0.60 with an Mean Squared Error of 2.43, which is not very accurate. Hence, I will do some more feature enginnering and try to see if I can raise the scores of my model.
+The highest score was 0.60 with an Mean Squared Error of 2.43, which is not very accurate. Hence, I will do some more feature enginnering and try to see if I can raise the scores of my model. As you can see below it tends to miss grades in the lower and higher end and instead predict a higher volume near the middle of the distribution curve.
 
 ![Distribution plot of actual vs fitted values](https://github.com/tlondahl/Admission_grades/blob/main/distplot.png)
