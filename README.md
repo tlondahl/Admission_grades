@@ -90,3 +90,28 @@ I ran the code scraping 24 semesters back, i.e. 12 years of addmission data. The
 |BI | The lowest admitted high school grade (for people who had _**not**_ improved their grades since graduating high schools) |
 |BII | The lowest admitted high school grade (for people who _**had**_ improved their grades since graduating high schools) |
 |HP | The lowest score on the Swedish SAT (Högskoleprovet) that was admitted |
+
+
+# Data Cleaning and EDA
+To make the data more usable I had to do some cleaning. Some examples of what I did was:
+- Creating a date column with the date of each row (i.e. which date that perticular grade was the lowest addmitted grade.
+- Unified some of the program names making sure the same type of programs were called the same thing.
+- Dopped duplicated and NaN values
+
+when looking at the data there were some interdependent variables (as expected), for instance the number of applicant who ranked a program as number 1 and the total number of applicants. If one increased it is quite likely that the other increases as well. Out of those two it seemed that it was the total number of applicant who had the greates correlation with the target value
+
+![Heatmap of the numeric variables](https://github.com/tlondahl/Admission_grades/blob/main/heatmap.png)
+
+Furthermore when looking at the different variables there were no one with a super high correlation. The highest correlation were araound 0.55, for instance appl_tot.
+
+## Model building and Evaluation
+I used a Linear regression and with after some experiemtns I found that the most accurate model I could achive at this time was a model with the following features:
+- 'appl_tot', 
+- 'semester' 
+- 'name', 
+- 'Uni'
+- 'days'
+
+The highest score was 0.60 with an Mean Squared Error of 2.43, which is not very accurate. Hence, I will do some more feature enginnering and try to see if I can raise the scores of my model.
+
+![Distribution plot of actual vs fitted values](https://github.com/tlondahl/Admission_grades/blob/main/distplot.png)
