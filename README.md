@@ -2,7 +2,7 @@
 ## Summary
 In this project I built a web scraper in order to get the admission data of all swedish universities. This data was later used to build a model to predict upcomming admission grades. The model currently has an R^2 score of 0.6 and a MSE of 2.43. However, I am cirrently working on ways to improve it further.
 
-![Distribution plot of actual vs fitted values](https://github.com/tlondahl/Admission_grades/blob/main/distplot.png)
+![Distribution plot of actual vs fitted values](https://github.com/tlondahl/Admission_grades/blob/main/distplot_2.png)
 
 ## Introduction
 As a part of my learning experience I wanted to build a web scraper. A data scource i knew was quite frustrating to get full data from was the admissions for a certain university program in Sweden with data reaching several years back. To get this you previously had to go to click around at https://statistik.uhr.se/ to see the stats for differen semesters and could only see one semesters data at a time. Hence, I decided to build a web scraper who could do all the manual labor for me and neatly compile the data in a dataframe.
@@ -121,4 +121,4 @@ I used a Linear regression and with after some experiemtns I found that the most
 
 The highest score was 0.60 with an Mean Squared Error of 2.43, which is not very accurate. Hence, I will do some more feature enginnering and try to see if I can raise the scores of my model. As you can see below it tends to miss grades in the lower and higher end and instead predict a higher volume near the middle of the distribution curve.
 
-![Distribution plot of actual vs fitted values](https://github.com/tlondahl/Admission_grades/blob/main/distplot.png)
+![Distribution plot of actual vs fitted values](https://github.com/tlondahl/Admission_grades/blob/main/distplot_2.png)
