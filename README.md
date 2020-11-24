@@ -1,6 +1,6 @@
 # Admission Grades
 ## Summary
-In this project I built a web scraper in order to get the admission data of all swedish universities. This data was later used to build a model to predict upcomming admission grades. The model currently has an R^2 score of 0.71 and a MSE of 1.74. However, I am cirrently working on ways to improve it further.
+In this project I built a web scraper in order to get the admission data of all swedish universities. This data was later used to build a model to predict upcomming admission grades. The model currently has an R^2 score of 0.71 and a MSE of 1.74. However, I am currently working on ways to improve it further.
 
 ![Distribution plot of actual vs fitted values](https://github.com/tlondahl/Admission_grades/blob/main/distplot_2.png)
 
